@@ -1,7 +1,13 @@
 
 import 'package:flutter/material.dart';
-import 'package:secondapp/bodypart.dart';
+import 'package:secondapp/Auth/auth_wrapper.dart';
+import 'package:secondapp/model/bodypart.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:secondapp/Auth/login_screen.dart';
+
+
 
 Future<BodyPart> getBpdescr(int i) async {
   var dio = Dio();
@@ -10,13 +16,17 @@ Future<BodyPart> getBpdescr(int i) async {
 }
 
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
 
+  const MyApp({Key? key}) : super(key: key);
+ 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -24,7 +34,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Authwrapper(),
     );
   }
 }
@@ -38,8 +49,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double? markerX;
-  double? markerY;
+  
+  
+  double? markerX = null;
+  double? markerY = null;
 
   BodyPart? whatBodyPart(double? x, double? y){
     for(var bodypart in bodyparts){
@@ -74,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     
+    if (FirebaseAuth.instance.currentUser == null) {return  Authwrapper();}
     return Scaffold(
       appBar: AppBar(
 
@@ -103,6 +117,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.red,
                 ),
               ),
+            ),
+            ElevatedButton(
+              child: const Text('Log out'),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                setState(() {
+                });
+              },
             )
 
           ])
