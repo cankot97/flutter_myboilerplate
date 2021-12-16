@@ -15,7 +15,6 @@ Future<BodyPart> getBpdescr(int i) async {
   return BodyPart.fromJson(res.data);
 }
 
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -39,12 +38,6 @@ class MyApp extends StatelessWidget {
         home: const Authwrapper(),
       ),
     );
-    // return MaterialApp(
-    //   title: 'Flutter Demo',
-    //   theme: ThemeData(
-    //   ),
-    //   // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    //   home: const Authwrapper(),
   }
 }
 

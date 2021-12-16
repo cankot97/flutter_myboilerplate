@@ -18,7 +18,12 @@ class _UserPageState extends State<UserPage> {
         title: const Text('User Screen'),
       ),
       body: Center(
-        child: Text(FirebaseAuth.instance.currentUser?.toString() ?? "No User"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(FirebaseAuth.instance.currentUser?.toString() ?? "No User"),
+          ],
+        ),
       ),
     );
   }

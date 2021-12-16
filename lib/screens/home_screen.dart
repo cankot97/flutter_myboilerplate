@@ -1,9 +1,12 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:secondapp/services/auth_service.dart';
 import 'Auth/auth_wrapper.dart';
 import 'package:secondapp/model/bodypart.dart';
 import 'package:secondapp/main.dart';
 import 'package:firebase_auth/firebase_auth.dart'; 
+import 'user_page.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -30,8 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onTapDown(TapDownDetails details){
-    double x = details.globalPosition.dx;
-    double y = details.globalPosition.dy;  
+    double? x = details.globalPosition.dx;
+    double? y = details.globalPosition.dy;  
 
     setState(() {
       markerX = x;
@@ -48,8 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           children:  [
             GestureDetector(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Image.asset(
                   'assets/images/body.jpeg',
@@ -76,8 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
               left: markerX, 
               top: markerY,
               child: Container(
-                width: 10,
-                height: 10,
+                width: markerX != null? 10 : 0,
+                height: markerY != null ? 10: 0,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.red,
@@ -89,8 +90,18 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async {
                 await authenticator.signOut();
               },
+            ),
+            Positioned(
+              top: 30,
+              left: 30,
+              child: ElevatedButton(
+                child: const Text('User Page'),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UserPage())
+                ),
+              ),
             )
-
           ])
       ),
     );
@@ -117,12 +128,12 @@ class _MyHomePageState extends State<MyHomePage> {
               return const CircularProgressIndicator();
             },
           ),
-          ElevatedButton(
-            child: const Text('Back'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          )
+          // ElevatedButton(
+          //   child: const Text('Back'),
+          //   onPressed: () {
+          //     Navigator.pop(context);
+          //   },
+          // )
         ],
       ),
     );

@@ -1,7 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:secondapp/screens/Auth/auth_wrapper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:secondapp/services/auth_service.dart';
 
 
@@ -21,20 +19,11 @@ class _LoginscreenState extends State<Loginscreen> {
   final passwordcontroller = TextEditingController();
 
 
-  void logout() async {
-    await FirebaseAuth.instance.signOut();
-    setState(() {
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (FirebaseAuth.instance.currentUser != null) {
-      return const Authwrapper();
-    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account authentication ' + (FirebaseAuth.instance.currentUser == null ? 'Out' : 'In')),
+        title: const Text('Login Page'),
       ),
       body: Center(
         child: Column(
@@ -46,7 +35,6 @@ class _LoginscreenState extends State<Loginscreen> {
               children: [
                 ElevatedButton(onPressed: () => _auth.signIn(emailcontroller.text, passwordcontroller.text), child: const Text('Sign in')),
                 ElevatedButton(onPressed: () => _auth.signUp(emailcontroller.text, passwordcontroller.text), child: const Text('Sign up')),
-                ElevatedButton(onPressed: ()=> logout(), child: const Text('Log out'))
               ]
             )
           ],
