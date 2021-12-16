@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:secondapp/Auth/auth_wrapper.dart';
+import 'package:secondapp/screens/Auth/auth_wrapper.dart';
 import 'package:secondapp/model/bodypart.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:secondapp/Auth/login_screen.dart';
+import 'package:secondapp/screens/Auth/login_screen.dart';
 
 
 
