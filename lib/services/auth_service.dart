@@ -6,6 +6,11 @@ class AuthService {
 
   final FirebaseAuth authenticator = FirebaseAuth.instance;
 
+  //auth change user stream
+  Stream<User?> get user {
+    return authenticator.authStateChanges();
+  }
+
   //sign in
   Future signIn(String email, String password) async {
     try {
@@ -19,7 +24,6 @@ class AuthService {
   }
 
   //Sign up
-
   Future signUp(String email, String password) async {
     try{
       UserCredential result = await authenticator.createUserWithEmailAndPassword(email: email, password: password);

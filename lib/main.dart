@@ -5,7 +5,8 @@ import 'package:secondapp/model/bodypart.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:secondapp/screens/Auth/login_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:secondapp/services/auth_service.dart';
 
 
 
@@ -30,13 +31,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    return StreamProvider<User?>(
+      create: (_) => AuthService().user,
+      initialData: null,
+      child: MaterialApp(
+        title: "Flutter Firebase Authentication",
+        theme: ThemeData(),
+        home: const Authwrapper(),
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const Authwrapper(),
     );
+    // return MaterialApp(
+    //   title: 'Flutter Demo',
+    //   theme: ThemeData(
+    //   ),
+    //   // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    //   home: const Authwrapper(),
   }
 }
 
@@ -51,8 +60,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   
   
-  double? markerX = null;
-  double? markerY = null;
+  double? markerX ;
+  double? markerY ;
 
   BodyPart? whatBodyPart(double? x, double? y){
     for(var bodypart in bodyparts){
