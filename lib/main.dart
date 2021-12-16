@@ -5,7 +5,7 @@ import 'package:secondapp/model/bodypart.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:secondapp/Auth/login_screen.dart';
+import 'package:secondapp/user_page.dart';
 
 
 
@@ -51,8 +51,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   
   
-  double? markerX = null;
-  double? markerY = null;
+  double? markerX;
+  double? markerY;
 
   BodyPart? whatBodyPart(double? x, double? y){
     for(var bodypart in bodyparts){
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           children:  [
             GestureDetector(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Image.asset(
                   'assets/images/body.jpeg',
@@ -125,6 +125,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                 });
               },
+            ),
+            Positioned(
+              top: 40,
+              child: ElevatedButton(
+              child: const Text('User page'),
+              onPressed: () {
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const UserPage())); 
+              }
+              
+            ),
             )
 
           ])
