@@ -59,7 +59,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  
+  final authenticator = AuthService();
   double? markerX ;
   double? markerY ;
 
@@ -130,9 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               child: const Text('Log out'),
               onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                setState(() {
-                });
+                await authenticator.signOut();
               },
             )
 
