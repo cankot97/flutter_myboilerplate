@@ -40,7 +40,7 @@ class _LoginscreenState extends State<Loginscreen> {
   @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser != null) {
-      return Authwrapper();
+      return const Authwrapper();
     }
     return Scaffold(
       appBar: AppBar(

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: Authwrapper(),
+      home: const Authwrapper(),
     );
   }
 }
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     
-    if (FirebaseAuth.instance.currentUser == null) {return  Authwrapper();}
+    if (FirebaseAuth.instance.currentUser == null) {return const  Authwrapper();}
     return Scaffold(
       appBar: AppBar(
 
